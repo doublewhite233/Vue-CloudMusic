@@ -25,5 +25,13 @@ export function getLyric(id) {
       id
     }
   })
+}
 
+export function likeMusic(id) {
+  return request({
+    url: '/like',
+    params: {
+      id
+    }
+  })
 }

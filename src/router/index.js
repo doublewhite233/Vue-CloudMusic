@@ -9,6 +9,8 @@ const login = () => import('../views/login/Login')
 const music = () => import('../views/music/Music')
 const search = () => import('../views/search/Search')
 const playlist = () => import('../views/playlist/PlayList')
+const tracksquare = () => import('../views/tracksquare/TrackSquare')
+const comment = () => import('../views/comment/Comment')
 
 Vue.use(VueRouter)
 
@@ -46,8 +48,16 @@ const routes = [
     component: search
   },
   {
-    path: '/playlist',
+    path: '/playlist/:id',
     component: playlist
+  },
+  {
+    path: '/tracksquare/:cat',
+    component: tracksquare
+  },
+  {
+    path: '/comment/:id',
+    component: comment
   }
 ]
 

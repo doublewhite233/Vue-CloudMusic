@@ -1,7 +1,7 @@
 <template>
   <div class="cloud">
     <scroll class="content" ref="scroll">
-      <comment :comment-list="commentList"></comment>
+      <comment :comment-list="commentList" @imgload="imgLoad"></comment>
     </scroll>
   </div>
 </template>
@@ -31,6 +31,20 @@
     },
     updated() {
       this.$refs.scroll.refresh()
+    },
+    methods: {
+      imgLoad() {
+        this.debounce(this.$refs.scroll.refresh(), 500)
+      },
+      debounce(func, delay) {
+        let timer = null
+        return function () {
+          if (timer) clearTimeout(timer)
+          timer = setTimeout(() => {
+            func.apply(this, args)
+          }, delay)
+        }
+      }
     }
   }
 </script>

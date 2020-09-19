@@ -2,12 +2,12 @@
   <div class="play-list-item">
     <div class="play-list-title">
       {{playlist.uiElement.mainTitle.title}}
-      <button class="play-list-btn" v-if="playlist.uiElement.button">{{playlist.uiElement.button.text}}</button>
+      <button class="play-list-btn" v-if="playlist.uiElement.button" @click="btnClick(playlist.uiElement.button.text)">{{playlist.uiElement.button.text}}</button>
     </div>
     <div class="play-list-content" v-if="playlist.creatives">
       <div v-for="item of playlist.creatives">
-        <img :src="item.uiElement.image.imageUrl" alt="" class="play-list-img" v-if="item.uiElement.image">
-        <div class="play-list-littletitle" v-if="item.uiElement.image">{{item.uiElement.mainTitle.title}}</div>
+        <img :src="item.uiElement.image.imageUrl" alt="" class="play-list-img" v-if="item.uiElement.image"  @click="clickMusicList(item.creativeId)">
+        <div class="play-list-littletitle" v-if="item.uiElement.image"  @click="clickMusicList(item.creativeId)">{{item.uiElement.mainTitle.title}}</div>
 
         <div v-else>
           <div v-for="listitem of item.resources" class="play-list-other">
@@ -63,15 +63,35 @@
     methods: {
       playMusic(id) {
         getMusic(id).then(res=> {
-          console.log(res.songs[0].al);
-          let music = res.songs[0].al
-          music.id = res.songs[0].id
-          getMusicUrl(id).then( res=> {
-            music.url = res.data[0].url
-            music.id = id
-            this.$store.commit('addMusicToList', music)
-          })
+          let len = res.songs.length
+          id = id.toString().split(',')
+          for (let i = 0; i < len; i++) {
+            console.log(res.songs[i].al);
+            let music = res.songs[i].al
+            getMusicUrl(id[i]).then( res=> {
+              music.url = res.data[0].url
+              music.id = id[i]
+              this.$store.commit('addMusicToList', music)
+            })
+          }
         })
+      },
+      clickMusicList(id) {
+        this.$router.push('/playlist/'+id)
+      },
+      btnClick(text) {
+        if (text === '播放全部') {
+          let playlist = ''
+          for (let i = 0; i < this.playlist.creatives.length; i++) {
+            for (let j = 0; j < this.playlist.creatives[i].resources.length; j++) {
+              playlist = playlist + this.playlist.creatives[i].resources[j].resourceId.toString()+','
+            }
+          }
+          playlist = playlist.substr(0,playlist.length-1)
+          this.playMusic(playlist)
+        } else {
+          this.$router.push('/tracksquare/'+'华语')
+        }
       }
     }
   }

@@ -2,7 +2,7 @@
   <div class="comment">
     <div class="comment-div">
       <div v-for="item in commentList" class="comment-item">
-        <img :src="item.simpleResourceInfo.songCoverUrl" alt="" class="comment-img">
+        <img :src="item.simpleResourceInfo.songCoverUrl" alt="" class="comment-img" @load="imgLoad">
         <div class="comment-text">{{item.content}}</div>
         <div class="userInfo">
           <img :src="item.simpleUserInfo.avatar" alt="" class="user-avatar">
@@ -19,6 +19,11 @@
     name: "Comment",
     props: {
       commentList: Array
+    },
+    methods: {
+      imgLoad() {
+        this.$emit('imgload')
+      }
     }
   }
 </script>
