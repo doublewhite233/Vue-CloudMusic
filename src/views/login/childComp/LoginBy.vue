@@ -27,7 +27,8 @@
 </template>
 
 <script>
-  import {loginByPhone, loginByEmail} from "../../../network/login";
+  import {loginByPhone, loginByEmail, getDetailInfo} from "../../../network/login";
+  import {getLikelist} from "../../../network/music";
 
   export default {
     name: "LoginBy",
@@ -51,8 +52,16 @@
           userInfo.cookie = res.cookie
           userInfo.profile = res.profile
           console.log(userInfo);
-          this.$store.dispatch('getUserInfo',userInfo).then( res => {
-            this.$router.go(-1)
+          getDetailInfo(userInfo.profile.userId).then(res => {
+            console.log(res);
+            userInfo.playlist = res.playlist
+            this.$store.dispatch('getUserInfo',userInfo).then( res => {
+              getLikelist(this.$store.state.userInfo.profile.id,this.$store.state.userInfo.cookie).then(res=> {
+                console.log(res);
+                this.$store.commit('setLikelist',res.ids)
+                this.$router.go(-1)
+              })
+            })
           })
         })
       },
@@ -62,8 +71,16 @@
           userInfo.cookie = res.cookie
           userInfo.profile = res.profile
           console.log(userInfo);
-          this.$store.dispatch('getUserInfo',userInfo).then( res => {
-            this.$router.go(-1)
+          getDetailInfo(userInfo.profile.userId).then(res => {
+            console.log(res);
+            userInfo.playlist = res.playlist
+            this.$store.dispatch('getUserInfo',userInfo).then( res => {
+              getLikelist(this.$store.state.userInfo.profile.id,this.$store.state.userInfo.cookie).then(res=> {
+                console.log(res);
+                this.$store.commit('setLikelist',res.ids)
+                this.$router.go(-1)
+              })
+            })
           })
         })
       },

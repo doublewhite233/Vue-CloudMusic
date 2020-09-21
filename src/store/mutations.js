@@ -70,5 +70,40 @@ export default {
         state.nowPlayingMusic = state.playList [index - 1]
       }
     }
+  },
+  delSubscribe(state,payload) {
+    for (let i = 0; i < state.userInfo.playlist.length; i++) {
+      if (state.userInfo.playlist[i].id == payload) {
+        state.userInfo.playlist.splice(i,1)
+      }
+    }
+  },
+  addSubscribe(state,payload) {
+    let flag = true
+    for (let i = 0; i < state.userInfo.playlist.length; i++) {
+      if (state.userInfo.playlist[i].id === payload.id) {flag = false}
+    }
+    if(flag = true) {
+      state.userInfo.playlist.push(payload)
+    }
+  },
+  setLikelist(state,payload) {
+    Vue.set(state.userInfo,'likelist',payload)
+  },
+  addLikeMusic(state, payload) {
+    let flag = true
+    for (let i = 0; i < state.userInfo.likelist.length; i++) {
+      if (state.userInfo.likelist[i].id == payload.id) {flag = false}
+    }
+    if(flag = true) {
+      state.userInfo.likelist.push(payload)
+    }
+  },
+  delLikeMusic(state, payload) {
+    for (let i = 0; i < state.userInfo.likelist.length; i++) {
+      if (state.userInfo.likelist[i] == payload) {
+        state.userInfo.likelist.splice(i,1)
+      }
+    }
   }
 }

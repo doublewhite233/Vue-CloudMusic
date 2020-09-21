@@ -19,3 +19,12 @@ export function loginByEmail(email, password) {
     }
   })
 }
+
+export function getDetailInfo(uid) {
+  return request({
+    url: '/user/playlist',
+    params: {
+      uid
+    }
+  })
+}

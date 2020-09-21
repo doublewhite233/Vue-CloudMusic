@@ -1,7 +1,7 @@
 <template>
   <div class="track-item">
-    <div class="index" v-if="musicid !== $store.state.nowPlayingMusic.id">{{index+1}}</div>
-    <img src="../../../assets/img/find/playing.png" alt="" class="playing" v-else>
+    <img src="../../../assets/img/find/playing.png" alt="" class="playing" v-if="musicid == $store.state.nowPlayingMusic.id">
+    <div class="index" v-else>{{index+1}}</div>
     <div class="music-info" @click="clickMusic(musicid)">
       <div>{{musicName}}</div>
       <div style="color: #666;font-size: 14px;">{{desc}}</div>

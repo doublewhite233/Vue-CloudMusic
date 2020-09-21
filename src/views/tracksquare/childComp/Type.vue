@@ -61,10 +61,11 @@
           console.log(res);
           this.musicList.push(...res.playlists)
           this.offset+=1
+          this.showList = true
+          this.$refs.scroll.refresh()
+          this.$router.replace('/tracksquare/' + name);
         })
-        this.showList = true
-        this.$refs.scroll.refresh()
-        this.$router.replace('/tracksquare/' + name);
+        this.$emit('changetype',name)
       },
       pullingup() {
         getTrackInfo(this.currentName,this.offset).then( res => {

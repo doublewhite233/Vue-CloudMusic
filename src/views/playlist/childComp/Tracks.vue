@@ -2,9 +2,10 @@
   <div class="track">
     <div class="track-content">
       <div style="width: 60%;" @click="playall">播放全部（共{{tracks.length}}首）</div>
-      <button class="subscribe">收藏（{{subscribedCount}}）</button>
+      <button class="subscribe" @click="subscribePlayList" v-if="!isSubscribed">收藏（{{subscribedCount}}）</button>
+      <button class="subscribe" @click="delPlayList" style="background-color: #666;" v-else>已收藏</button>
       <scroll class="content" ref="scroll">
-        <track-item v-for="(item,index) in tracks" :index="index" :musicid="item.id" @textloaded="refreshScroll" @clickmusic="clickMusic"></track-item>
+        <track-item v-for="(item,index) in tracks" :index="index" :musicid="item.id" @textloaded="refreshScroll" @clickmusic="clickMusic" :key="item.id"></track-item>
       </scroll>
     </div>
   </div>
@@ -24,7 +25,20 @@
     },
     props: {
       tracks: Array,
-      subscribedCount: Number
+      subscribedCount: Number,
+      id: String
+    },
+    computed: {
+      isSubscribed() {
+        if (this.$store.state.userInfo!==null) {
+          for(let i = 0; i < this.$store.state.userInfo.playlist.length; i++) {
+            if (this.$store.state.userInfo.playlist[i].id == this.id){
+              return true
+            }
+          }
+        }
+        return false
+      }
     },
     methods: {
       playMusic(id) {
@@ -65,6 +79,12 @@
         }
         playlist = playlist.substr(0,playlist.length-1)
         this.playMusic(playlist)
+      },
+      subscribePlayList() {
+        this.$emit('subscribeplaylist')
+      },
+      delPlayList() {
+        this.$emit('delplaylist')
       }
     }
   }
@@ -99,6 +119,7 @@
     padding: 5px 10px;
     border-radius: 25px;
     font-size: 14px;
+    width: 140px;
   }
 
   .content {

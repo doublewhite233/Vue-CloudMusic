@@ -27,11 +27,23 @@ export function getLyric(id) {
   })
 }
 
-export function likeMusic(id) {
+export function getLikelist(id,cookie) {
+ return request({
+   url: '/likelist',
+   params: {
+     id,
+     cookie
+   }
+ })
+}
+
+export function likeMusic(id,like,cookie) {
   return request({
     url: '/like',
     params: {
-      id
+      id,
+      like,
+      cookie
     }
   })
 }

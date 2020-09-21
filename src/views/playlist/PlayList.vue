@@ -4,12 +4,13 @@
     <img src="../../assets/img/common/backwhite.png" alt="" class="back" @click="back">
     <div class="title">歌单</div>
     <play-list-info :playlist-data="playlistData"></play-list-info>
-    <tracks :tracks="tracks" :subscribed-count="subscribedCount"></tracks>
+    <tracks :tracks="tracks" :subscribed-count="subscribedCount"
+            @subscribeplaylist="subscribeList" :id="id" @delplaylist="delPlaylist"></tracks>
   </div>
 </template>
 
 <script>
-  import {getPlaylistDetail} from "../../network/playlist";
+  import {getPlaylistDetail, subscribe} from "../../network/playlist";
 
   import PlayListInfo from "./childComp/PlayListInfo";
   import Tracks from "./childComp/Tracks";
@@ -40,6 +41,23 @@
     methods: {
       back() {
         this.$router.go(-1)
+      },
+      subscribeList() {
+        if (this.$store.state.userInfo === null) {
+          this.$toast.show('请先登录')
+        } else {
+          subscribe(this.id,1,this.$store.state.userInfo.cookie).then( res => {
+            console.log(res);
+            this.$store.commit('addSubscribe',this.playlistData)
+          })
+        }
+      },
+      delPlaylist() {
+        subscribe(this.id,2,this.$store.state.userInfo.cookie).then( res => {
+          console.log(res);
+          this.$store.commit('delSubscribe',this.id)
+          this.$forceUpdate();
+        })
       }
     }
   }

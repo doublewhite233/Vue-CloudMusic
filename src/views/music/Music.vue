@@ -7,14 +7,14 @@
       <div class="title">{{$store.state.nowPlayingMusic.name}}</div>
       <music-disc v-show="!isLyric" @click.native="showLyric"></music-disc>
       <lyric v-show="isLyric" @click.native="hideLyric" :lyric="lyricList"></lyric>
-      <disc-progress></disc-progress>
+      <disc-progress @likemusic="likeMusic" @dislikemusic="dislikeMusic"></disc-progress>
       <play-bar @showplaycard="showPlayCard = true"></play-bar>
     </div>
   </div>
 </template>
 
 <script>
-  import {getLyric} from "../../network/music";
+  import {getLyric, likeMusic} from "../../network/music";
 
   import PlayBar from "./childComp/PlayBar";
   import MusicDisc from "./childComp/MusicDisc";
@@ -37,7 +37,7 @@
         isLyric: false,
         lyric: null,
         lyricList: [],
-        showPlayCard: false
+        showPlayCard: false,
       }
     },
     methods: {
@@ -79,6 +79,20 @@
       },
       sortRule(a, b) {
         return a.time - b.time
+      },
+      likeMusic() {
+        likeMusic(this.$store.state.nowPlayingMusic.id,true,this.$store.state.userInfo.cookie).then(res=> {
+          console.log(res);
+          this.$store.commit('addLikeMusic',this.$store.state.nowPlayingMusic.id)
+          this.$forceUpdate();
+        })
+      },
+      dislikeMusic() {
+        likeMusic(parseInt(this.$store.state.nowPlayingMusic.id),false,this.$store.state.userInfo.cookie).then(res=> {
+          console.log(res);
+          this.$store.commit('delLikeMusic',parseInt(this.$store.state.nowPlayingMusic.id))
+          this.$forceUpdate();
+        })
       }
     }
   }

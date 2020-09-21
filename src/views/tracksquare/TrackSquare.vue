@@ -2,11 +2,11 @@
   <div>
     <div class="track-square">
       <img src="../../assets/img/common/back.png" alt="" class="back" @click="back">
-      <div class="title">歌单广场</div>
+      <div class="title">{{title}}</div>
       <img src="../../assets/img/common/type.png" alt="" class="type-icon" @click="showType = true">
       <choose-bar :choose-items="chooseList" class="choose-bar" @clickitem="clickItem"></choose-bar>
     </div>
-    <type v-show="showType" :type-info="typeInfo" :show-list="false"></type>
+    <type v-show="showType" :type-info="typeInfo" :show-list="false" @changetype="changeType"></type>
     <track-item :music-list="musicList" @pullingup="pullingup"></track-item>
   </div>
 </template>
@@ -32,7 +32,8 @@
         typeInfo: null,
         offset: 0,
         musicList: [],
-        currentIndex: 0
+        currentIndex: 0,
+        title: '歌单广场'
       }
     },
     created() {
@@ -50,6 +51,8 @@
       back() {
         if (this.showType === true){
           this.showType = false
+          this.title = '歌单广场'
+          this.$router.replace('/tracksquare/' + this.chooseList[this.currentIndex]);
         }else {
           this.$router.go(-1)
         }
@@ -71,6 +74,9 @@
           this.musicList.push(...res.playlists)
           this.offset+=1
         })
+      },
+      changeType(name) {
+        this.title = name
       }
     }
   }
