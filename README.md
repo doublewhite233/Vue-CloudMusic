@@ -26,3 +26,21 @@ npm run serve
 
 ### 4. 部分界面截图
 
+![image](https://github.com/doublewhite233/Vue-CloudMusic/blob/master/src/assets/screenshot/1.png)
+
+![image](https://github.com/doublewhite233/Vue-CloudMusic/blob/master/src/assets/screenshot/2.png)
+
+![image](https://github.com/doublewhite233/Vue-CloudMusic/blob/master/src/assets/screenshot/3.png)
+
+![image](https://github.com/doublewhite233/Vue-CloudMusic/blob/master/src/assets/screenshot/4.png)
+
+![image](https://github.com/doublewhite233/Vue-CloudMusic/blob/master/src/assets/screenshot/5.png)
+
+![image](https://github.com/doublewhite233/Vue-CloudMusic/blob/master/src/assets/screenshot/6.png)
+
+![image](https://github.com/doublewhite233/Vue-CloudMusic/blob/master/src/assets/screenshot/7.png)
+
+![image](https://github.com/doublewhite233/Vue-CloudMusic/blob/master/src/assets/screenshot/8.png)
+
+![image](https://github.com/doublewhite233/Vue-CloudMusic/blob/master/src/assets/screenshot/9.png)
+
