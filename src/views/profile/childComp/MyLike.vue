@@ -6,7 +6,7 @@
       <div>我喜欢的音乐</div>
       <div style="font-size: 12px" v-if="$store.state.userInfo">{{$store.state.userInfo.playlist[0].trackCount}}首</div>
     </div>
-    <button>心动模式</button>
+    <button @click="clickIntelligent">心动模式</button>
   </div>
 </template>
 
@@ -18,6 +18,9 @@
         if (this.$store.state.userInfo !== null) {
           this.$router.push('/playlist/'+this.$store.state.userInfo.playlist[0].id)
         }
+      },
+      clickIntelligent() {
+        this.$emit('clickintelligent')
       }
     }
   }

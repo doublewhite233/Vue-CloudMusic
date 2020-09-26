@@ -54,6 +54,7 @@
     right: 10%;
     z-index: 1002;
     border-radius: 10px;
+    animation: go .5s ease-in;
   }
 
   .title {
@@ -85,5 +86,14 @@
     right: 20px;
     margin-top: -35px;
     position: absolute;
+  }
+
+  @keyframes go {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0px);
+    }
   }
 </style>

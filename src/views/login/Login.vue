@@ -73,6 +73,7 @@
     display: flex;
     flex-flow: column;
     align-items: center;
+    animation: go .5s ease-in;
   }
 
   .logo {
@@ -112,5 +113,14 @@
     width: 40px;
     left: 15px;
     top: 20px;
+  }
+
+  @keyframes go {
+    0% {
+      transform: translateY(60%);
+    }
+    100% {
+      transform: translateY(0px);
+    }
   }
 </style>

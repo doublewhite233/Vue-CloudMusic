@@ -1,6 +1,8 @@
 <template>
   <div class="main-tab-bar">
-    <profile-card @closecard="closeCard" v-if="showCard"></profile-card>
+    <transition name="fade">
+      <profile-card @closecard="closeCard" v-if="showCard"></profile-card>
+    </transition>
     <tab-bar>
       <img src="../../../assets/img/tabbar/list.png" style="height: 20px" alt="" slot="left" @click="showCard = true">
       <div slot="center" class="main-tab-bar-center">
@@ -55,5 +57,16 @@
     display: flex;
     text-align: center;
     align-items: center;
+  }
+
+  .fade-enter-active {
+    transition: all .3s ease;
+  }
+  .fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .fade-enter, .fade-leave-to {
+    transform: translateX(-10px);
+    opacity: 0;
   }
 </style>

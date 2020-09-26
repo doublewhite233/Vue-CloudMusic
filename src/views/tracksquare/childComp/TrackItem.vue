@@ -3,7 +3,7 @@
     <scroll class="content" ref="scroll" :pull-up-load="true" @pullingUp="pullingUp">
       <div class="track-item-con">
         <div v-for="item in musicList" @click="toPlayList(item.id)">
-          <img :src="item.coverImgUrl" alt="" class="cover" @load="imgLoad">
+          <img v-lazy="item.coverImgUrl" alt="" class="cover" @load="imgLoad">
           <div class="name">{{item.name}}</div>
         </div>
       </div>

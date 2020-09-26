@@ -11,7 +11,7 @@
        <span class="logintext">{{$store.state.userInfo.profile.nickname}}</span>
       </div>
     </div>
-    <my-like></my-like>
+    <my-like @clickintelligent="clickIntelligent"></my-like>
     <choose-bar :chooseItems="['创建歌单','收藏歌单']"></choose-bar>
     <my-play-list :playlist="createdlist" v-if="$store.state.userInfo===null"></my-play-list>
     <my-play-list :playlist="createdlist" :show-add="true" @opencreate="showCreate = true" v-else @delplaylist="delPlaylist"></my-play-list>
@@ -89,6 +89,9 @@
           this.$forceUpdate();
           this.isRefresh = true
         })
+      },
+      clickIntelligent() {
+        console.log('???????');
       }
     }
   }

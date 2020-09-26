@@ -6,12 +6,12 @@
     </div>
     <div class="play-list-content" v-if="playlist.creatives">
       <div v-for="item of playlist.creatives">
-        <img :src="item.uiElement.image.imageUrl" alt="" class="play-list-img" v-if="item.uiElement.image"  @click="clickMusicList(item.creativeId)">
+        <img v-lazy="item.uiElement.image.imageUrl" alt="" class="play-list-img" v-if="item.uiElement.image"  @click="clickMusicList(item.creativeId)">
         <div class="play-list-littletitle" v-if="item.uiElement.image"  @click="clickMusicList(item.creativeId)">{{item.uiElement.mainTitle.title}}</div>
 
         <div v-else>
           <div v-for="listitem of item.resources" class="play-list-other">
-            <img :src="listitem.uiElement.image.imageUrl" alt="" class="play-list-img-other">
+            <img v-lazy="listitem.uiElement.image.imageUrl" alt="" class="play-list-img-other">
             <div class="play-list-maintext-other">{{listitem.uiElement.mainTitle.title}}-
               <span v-if="listitem.resourceExtInfo!==null">{{listitem.resourceExtInfo.songData.artists[0].name}}</span></div>
             <div v-if="listitem.uiElement.subTitle" class="play-list-littletitle-other">{{listitem.uiElement.subTitle.title}}</div>
@@ -25,14 +25,14 @@
     <div class="play-list-content" v-else>
       <div v-if="typeof (playlist.extInfo)==Array">
         <div v-for="item of playlist.extInfo">
-          <img :src="item.cover" alt="" class="play-list-img">
+          <img v-lazy="item.cover" alt="" class="play-list-img">
           <div class="play-list-littletitle">{{item.title}}</div>
         </div>
       </div>
       <div v-else>
         <div v-if="playlist.extInfo.squareFeedViewDTOList" style="display:flex;">
           <div v-for="item of playlist.extInfo.squareFeedViewDTOList">
-            <img :src="item.resource.mlogBaseData.coverUrl" alt="" class="play-list-img-large">
+            <img v-lazy="item.resource.mlogBaseData.coverUrl" alt="" class="play-list-img-large">
             <div class="play-list-littletitle">{{item.resource.mlogBaseData.text}}</div>
           </div>
         </div>
